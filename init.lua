@@ -161,6 +161,8 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+vim.opt.conceallevel = 2 -- Hide * markup for bold and italic (Neorg)
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -1019,6 +1021,5 @@ vim.keymap.set('n', '<leader>cf', '<cmd>edit $MYVIMRC<CR>', { desc = 'open init.
 
 -- [t] Toggle
 vim.keymap.set('n', '<leader>tb', '<cmd>GitBlameToggle<cr>', { desc = '[T]oggle Git [B]lame' })
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
