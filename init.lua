@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -154,14 +154,21 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 4
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
-vim.opt.conceallevel = 2 -- Hide * markup for bold and italic (Neorg)
+-- Hide * markup for bold and italic (Neorg)
+vim.opt.conceallevel = 2
+
+-- Relative line numbers
+vim.opt.relativenumber = true
+
+-- Command-line completion mode
+vim.opt_global.wildmode = 'list:longest'
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -433,11 +440,20 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind Recent Files' })
       vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = '[F]ind [C]ommands' })
       vim.keymap.set('n', '<leader>ft', builtin.treesitter, { desc = '[F]ind in [T]reesitter' })
+
       -- [b] BUFFER SHORTCUTS
+
       vim.keymap.set('n', '<leader>bb', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = '[ ] Next buffer ' })
       vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = '[ ] Previous buffer ' })
       vim.keymap.set('n', '<leader>bk', ':bdelete<CR>', { desc = '[ ] Kill buffer ' })
+
+      -- [g] GIT KEYBINDINGS
+
+      vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search Git Files' })
+      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Git Commits' })
+      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Git Branches' })
+      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Git Status' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -924,17 +940,17 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
+      --local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      --statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      -- statusline.section_location = function()
+      --   return '%2l:%-2v'
+      -- end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
@@ -975,12 +991,12 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
@@ -1016,10 +1032,29 @@ require('lazy').setup({
 
 local oil = require 'oil'
 vim.keymap.set('n', '<leader>-', oil.open, { desc = 'Browse parent directory' })
-
 vim.keymap.set('n', '<leader>cf', '<cmd>edit $MYVIMRC<CR>', { desc = 'open init.lua' })
+
+require('lualine').setup {
+  options = { theme = 'auto' },
+  sections = {
+    lualine_a = { { 'mode', upper = true } },
+    lualine_b = { { 'branch', icon = '' } },
+    lualine_c = {
+      { 'filename', path = 1, file_status = true },
+      require('lsp-progress').progress,
+      'g:metals_status',
+    },
+    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' },
+  },
+  extensions = { 'fzf' },
+}
 
 -- [t] Toggle
 vim.keymap.set('n', '<leader>tb', '<cmd>GitBlameToggle<cr>', { desc = '[T]oggle Git [B]lame' })
+
+local neogit = require 'neogit'
+vim.keymap.set('n', '<leader>gg', '<cmd>Neogit<cr>', { desc = '[g] Neo[g]it' })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
