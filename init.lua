@@ -44,6 +44,16 @@ vim.opt.undofile = true
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt_global.joinspaces = false
+vim.opt_global.scrolloff = 4
+vim.opt_global.shiftround = true
+
+local indent = 2
+
+vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.shiftwidth = indent -- Size of an indent
+vim.bo.softtabstop = 2
+vim.opt.breakindent = true -- Break line indent
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
@@ -52,7 +62,8 @@ vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
-vim.opt.timeoutlen = 300
+vim.opt.timeout = true
+vim.opt.timeoutlen = 800
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -63,6 +74,7 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.wrap = false
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -111,10 +123,31 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- [w] WINDOW MANAGEMENT
+vim.keymap.set('n', '<leader>wh', '<C-W>h', { desc = 'Go Left' })
+vim.keymap.set('n', '<leader>wj', '<C-W>j', { desc = 'Go Down' })
+vim.keymap.set('n', '<leader>wk', '<C-W>k', { desc = 'Go Up' })
+vim.keymap.set('n', '<leader>wl', '<C-W>l', { desc = 'Go Right' })
+vim.keymap.set('n', '<C-h>', '<C-W>h', { desc = 'Go Left' })
+vim.keymap.set('n', '<C-j>', '<C-W>j', { desc = 'Go Down' })
+vim.keymap.set('n', '<C-k>', '<C-W>k', { desc = 'Go Up' })
+vim.keymap.set('n', '<C-l>', '<C-W>l', { desc = 'Go Right' })
+vim.keymap.set('n', '<leader>wH', '<C-W>H', { desc = 'Move Left' })
+vim.keymap.set('n', '<leader>wJ', '<C-W>J', { desc = 'Move Down' })
+vim.keymap.set('n', '<leader>wK', '<C-W>K', { desc = 'Move Up' })
+vim.keymap.set('n', '<leader>wL', '<C-W>L', { desc = 'Move Right' })
+vim.keymap.set('n', '<leader>w=', '<C-W>=', { desc = 'Equalize' })
+vim.keymap.set('n', '<leader>w|', '<C-W>|', { desc = 'Maximize Horizontally' })
+vim.keymap.set('n', '<leader>w_', '<C-W>_', { desc = 'Maximize Vertically' })
+vim.keymap.set('n', '<leader>w+', '<C-W>+', { desc = 'Increase Height' })
+vim.keymap.set('n', '<leader>w-', '<C-W>-', { desc = 'Decrease Height' })
+vim.keymap.set('n', '<leader>w>', '<C-W>>', { desc = 'Increase Width' })
+vim.keymap.set('n', '<leader>w<', '<C-W><', { desc = 'Decrease Width' })
+vim.keymap.set('n', '<leader>ws', '<C-W>s', { desc = 'Split Horizontally' })
+vim.keymap.set('n', '<leader>wv', '<C-W>v', { desc = 'Split Vertically' })
+vim.keymap.set('n', '<leader>wo', '<C-W>o', { desc = 'Close all other windows' })
+vim.keymap.set('n', '<leader>ww', '<C-W>w', { desc = 'Switch window' })
+vim.keymap.set('n', '<leader>wc', '<C-W>q', { desc = 'Close Window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -370,10 +403,10 @@ require('lazy').setup({
 
       -- [g] GIT KEYBINDINGS
 
-      vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search Git Files' })
-      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Git Commits' })
-      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Git Branches' })
-      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Git Status' })
+      vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
+      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = '[G]it [C]ommits' })
+      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches' })
+      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -951,6 +984,7 @@ require('lazy').setup({
 })
 
 local oil = require 'oil'
+oil.setup { view_options = { show_hidden = true } }
 vim.keymap.set('n', '<leader>-', oil.open, { desc = 'Browse parent directory' })
 vim.keymap.set('n', '<leader>cf', '<cmd>edit $MYVIMRC<CR>', { desc = 'open init.lua' })
 
@@ -976,5 +1010,16 @@ vim.keymap.set('n', '<leader>tb', '<cmd>GitBlameToggle<cr>', { desc = '[T]oggle 
 
 local neogit = require 'neogit'
 vim.keymap.set('n', '<leader>gg', '<cmd>Neogit<cr>', { desc = '[g] Neo[g]it' })
--- The line beneath this is called `modeline`. See `:help modeline`
+
+require('aerial').setup {
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  layout = { default_direction = 'prefer_left' },
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+  end,
+}
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>') -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

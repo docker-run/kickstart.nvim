@@ -10,11 +10,10 @@ return {
       ['core.dirman'] = {
         config = {
           workspaces = {
-            -- TODO move this to dropbox maybe?
-            work = '~/notes/work',
-            home = '~/notes/home',
-            sabbatical = '~/notes/sabbatical',
-            personal = '~/notes/personal',
+            work = '~/Dropbox/notes/work',
+            home = '~/Dropbox/notes/home',
+            sabbatical = '~/Dropbox/notes/sabbatical',
+            personal = '~/Dropbox/notes/personal',
           },
           default_workspace = 'work',
         },
