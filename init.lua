@@ -1021,5 +1021,11 @@ require('aerial').setup {
   end,
 }
 -- You probably also want to set a keymap to toggle aerial
-vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>') -- The line beneath this is called `modeline`. See `:help modeline`
+vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
+-- Use move command to move lines of code down when highlighted
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+-- Use move command to move lines of code up when highlighted
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+--
+-- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
