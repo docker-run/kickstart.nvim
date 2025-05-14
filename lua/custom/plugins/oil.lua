@@ -5,6 +5,8 @@ return {
   opts = { view_options = { show_hidden = true } },
   config = function()
     require('oil').setup()
+    vim.keymap.set('n', '<leader>-', require('oil').open, { desc = 'Browse parent directory' })
+    vim.keymap.set('n', '<leader>cf', '<cmd>edit $MYVIMRC<CR>', { desc = 'open init.lua' })
   end,
   -- Optional dependencies
   dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons

@@ -983,45 +983,10 @@ require('lazy').setup({
   },
 })
 
-local oil = require 'oil'
-oil.setup { view_options = { show_hidden = true } }
-vim.keymap.set('n', '<leader>-', oil.open, { desc = 'Browse parent directory' })
-vim.keymap.set('n', '<leader>cf', '<cmd>edit $MYVIMRC<CR>', { desc = 'open init.lua' })
-
-require('lualine').setup {
-  options = { theme = 'auto' },
-  sections = {
-    lualine_a = { { 'mode', upper = true } },
-    lualine_b = { { 'branch', icon = '' } },
-    lualine_c = {
-      { 'filename', path = 1, file_status = true },
-      require('lsp-progress').progress,
-      'g:metals_status',
-    },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' },
-  },
-  extensions = { 'fzf' },
-}
-
 -- [t] Toggle
 vim.keymap.set('n', '<leader>tb', '<cmd>GitBlameToggle<cr>', { desc = '[T]oggle Git [B]lame' })
 
-local neogit = require 'neogit'
 vim.keymap.set('n', '<leader>gg', '<cmd>Neogit<cr>', { desc = '[g] Neo[g]it' })
-
-require('aerial').setup {
-  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-  layout = { default_direction = 'prefer_left' },
-  on_attach = function(bufnr)
-    -- Jump forwards/backwards with '{' and '}'
-    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
-    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
-  end,
-}
--- You probably also want to set a keymap to toggle aerial
-vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
 -- Use move command to move lines of code down when highlighted
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 -- Use move command to move lines of code up when highlighted
