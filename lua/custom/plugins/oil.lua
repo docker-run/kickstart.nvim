@@ -4,7 +4,7 @@ return {
   ---@type oil.SetupOpts
   opts = { view_options = { show_hidden = true } },
   config = function()
-    require('oil').setup()
+    require('oil').setup { view_options = { show_hidden = true } }
     vim.keymap.set('n', '<leader>-', require('oil').open, { desc = 'Browse parent directory' })
     vim.keymap.set('n', '<leader>cf', '<cmd>edit $MYVIMRC<CR>', { desc = 'open init.lua' })
   end,
