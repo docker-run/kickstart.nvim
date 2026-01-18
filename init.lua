@@ -407,6 +407,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = '[ ] Next buffer ' })
       vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = '[ ] Previous buffer ' })
       vim.keymap.set('n', '<leader>bk', ':bdelete<CR>', { desc = '[ ] Kill buffer ' })
+      vim.keymap.set('n', '<leader>br', ':e<CR>', { desc = '[ ] Reload buffer' })
 
       -- [g] GIT KEYBINDINGS
 
