@@ -145,10 +145,7 @@ vim.keymap.set('n', '<leader>wh', '<C-W>h', { desc = 'Go Left' })
 vim.keymap.set('n', '<leader>wj', '<C-W>j', { desc = 'Go Down' })
 vim.keymap.set('n', '<leader>wk', '<C-W>k', { desc = 'Go Up' })
 vim.keymap.set('n', '<leader>wl', '<C-W>l', { desc = 'Go Right' })
-vim.keymap.set('n', '<C-h>', '<C-W>h', { desc = 'Go Left' })
-vim.keymap.set('n', '<C-j>', '<C-W>j', { desc = 'Go Down' })
-vim.keymap.set('n', '<C-k>', '<C-W>k', { desc = 'Go Up' })
-vim.keymap.set('n', '<C-l>', '<C-W>l', { desc = 'Go Right' })
+-- C-h/j/k/l handled by vim-tmux-navigator
 vim.keymap.set('n', '<leader>wH', '<C-W>H', { desc = 'Move Left' })
 vim.keymap.set('n', '<leader>wJ', '<C-W>J', { desc = 'Move Down' })
 vim.keymap.set('n', '<leader>wK', '<C-W>K', { desc = 'Move Up' })
@@ -881,7 +878,7 @@ require('lazy').setup({
     branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
-      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'typescript', 'tsx', 'javascript', 'json' }
       require('nvim-treesitter').install(parsers)
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)

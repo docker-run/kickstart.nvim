@@ -2,9 +2,14 @@ return {
   'stevearc/oil.nvim',
   ---@module 'oil'
   ---@type oil.SetupOpts
-  opts = { view_options = { show_hidden = true } },
   config = function()
-    require('oil').setup { view_options = { show_hidden = true } }
+    require('oil').setup {
+      view_options = { show_hidden = true },
+      keymaps = {
+        ['<C-h>'] = false,
+        ['<C-l>'] = false,
+      },
+    }
     vim.keymap.set('n', '<leader>-', require('oil').open, { desc = 'Browse parent directory' })
     vim.keymap.set('n', '<leader>cf', '<cmd>edit $MYVIMRC<CR>', { desc = 'open init.lua' })
   end,
