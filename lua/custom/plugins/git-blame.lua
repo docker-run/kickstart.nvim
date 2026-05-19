@@ -1,6 +1,2 @@
-return {
-  'f-person/git-blame.nvim',
-  opts = {
-    enabled = false, -- if you want to enable the plugin
-  },
-}
+vim.pack.add { gh 'f-person/git-blame.nvim' }
+require('gitblame').setup { enabled = false }

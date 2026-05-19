@@ -1,8 +1,23 @@
--- You can add your own plugins here or in other files in this directory!
---  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
+-- Custom plugins. Loaded eagerly via vim.pack.
+-- Add a new entry here when you drop another file into this directory.
 
----@module 'lazy'
----@type LazySpec
-return {}
+require 'custom.plugins.aerial'
+require 'custom.plugins.barbar'
+require 'custom.plugins.better-escape'
+require 'custom.plugins.diffview'
+require 'custom.plugins.git-blame'
+require 'custom.plugins.grug-far'
+require 'custom.plugins.leap'
+require 'custom.plugins.lsp-progress'
+require 'custom.plugins.lualine'
+require 'custom.plugins.neogit'
+require 'custom.plugins.neorg'
+require 'custom.plugins.nvim-surround'
+require 'custom.plugins.nvim-ufo'
+require 'custom.plugins.oil'
+require 'custom.plugins.precognition'
+require 'custom.plugins.refactoring'
+require 'custom.plugins.treesitter-context'
+require 'custom.plugins.trouble'
+require 'custom.plugins.vim-fugitive'
+require 'custom.plugins.vim-tmux-navigator'

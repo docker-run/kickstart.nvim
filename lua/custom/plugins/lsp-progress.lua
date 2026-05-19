@@ -1,6 +1,2 @@
-return {
-  'linrongbin16/lsp-progress.nvim',
-  config = function()
-    require('lsp-progress').setup()
-  end,
-}
+vim.pack.add { gh 'linrongbin16/lsp-progress.nvim' }
+require('lsp-progress').setup()

@@ -1,3 +1,1 @@
-return {
-  'tpope/vim-fugitive',
-}
+vim.pack.add { gh 'tpope/vim-fugitive' }

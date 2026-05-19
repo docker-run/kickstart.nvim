@@ -1,1 +1,1 @@
-return { 'sindrets/diffview.nvim' }
+vim.pack.add { gh 'sindrets/diffview.nvim' }

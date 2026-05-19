@@ -1,4 +1,1 @@
-return {
-  'christoomey/vim-tmux-navigator',
-  event = 'VeryLazy',
-}
+vim.pack.add { gh 'christoomey/vim-tmux-navigator' }
